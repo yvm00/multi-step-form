@@ -1,10 +1,29 @@
+import InfoPage from 'src/pages/InfoPage.vue';
+import OnsPage from 'src/pages/OnsPage.vue';
+import PlanPage from 'src/pages/PlanPage.vue';
+import SummaryPage from 'src/pages/SummaryPage.vue';
 import type { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
+    name: 'Info',
+    component: InfoPage,
+  },
+  {
+    path: '/plan',
+    name: 'Plan',
+    component: PlanPage,
+  },
+  {
+    path: '/ons',
+    name: 'Ons',
+    component: OnsPage,
+  },
+  {
+    path: '/sum',
+    name: 'Summary',
+    component: SummaryPage,
   },
 
   // Always leave this as last one,
