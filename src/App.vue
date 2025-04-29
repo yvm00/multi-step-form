@@ -4,7 +4,7 @@
       <q-page class="form flex flex-center" >
         <div class="form__container row">
           <StepsMenu/>
-          <div class="col-8 q-ma-md">
+          <div class="col-sm col-md-8 q-ma-md">
             <router-view/>
           </div>
 

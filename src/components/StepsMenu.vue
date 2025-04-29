@@ -1,6 +1,6 @@
 <template>
     <div class="menu col q-ma-md">
-        <div class="menu__items  row items-center q-px-md q-pt-lg"
+        <div class="menu__items row items-center q-px-md q-pt-lg"
         v-for="btn in btns"
         :key="btn.id">
             <q-btn 
@@ -13,7 +13,7 @@
             >
             {{ btn.id }}
             </q-btn>
-            <div class="col q-px-md">
+            <div class="col-md q-px-md">
                 <div class="menu__label text-caption text-weight-light"> {{ btn.label }}</div>
                 <div class="text-body2 text-weight-bold"> {{ btn.title }} </div>
             </div>            
