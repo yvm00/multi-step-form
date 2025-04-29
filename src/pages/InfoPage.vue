@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { useMenuStore, type MenuItem } from '../stores/menuStore';
+import { useMenuStore } from '../stores/menuStore';
 import { ref } from 'vue';
 const menuStore = useMenuStore();
 

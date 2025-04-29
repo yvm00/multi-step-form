@@ -10,7 +10,7 @@
             <q-card 
             v-for="card in cards"
             :key="card.id"
-            @click="planStore.selectPlan(card.label)"
+            @click="planStore.setPlan(card.label)"
             class="plan__card"
             :class="{'plan__card-selected': isSelected(card.label)}" 
             flat 
@@ -41,24 +41,18 @@
                 />
             <div class="text-weight-bold" :class="{'text-primary': planStore.version == 'yearly', 'text-secondary': planStore.version == 'montly' }">Yearly</div>
         </div>
-
-        <div class="q-my-lg">
-            <q-form @submit="onSubmit">                
-                <div class="flex justify-end q-mt-xl">
-                    <q-btn class="text-capitalize text-weight-medium" label="Next Step" type="submit" color="primary" unelevated/>
-                </div>            
-            </q-form>      
-        </div>
+        <NextButtons :component="'Ons'"/>
     </div>
 </template>
 
 <script setup lang="ts">
 import { useMenuStore} from '../stores/menuStore';
 import { usePlanStore, type CardsItem} from '../stores/planStore';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import arcadeIcon from '../assets/icon-arcade.svg';
 import advancedIcon from '../assets/icon-advanced.svg';
 import proIcon from '../assets/icon-pro.svg';
+import NextButtons from '../components/NextButtons.vue';
 const menuStore = useMenuStore();
 const planStore = usePlanStore();
 
@@ -72,11 +66,9 @@ const isSelected = (label: string) => {
   return planStore.selectedPlan === label;
 };
 
-const onSubmit = () => {    
-    menuStore.navigateTo('Ons')    
-}
-
-
+onMounted(() => {
+  planStore.setPlan('Arcade');
+});
 
 </script>
 
@@ -87,14 +79,14 @@ const onSubmit = () => {
     border-radius: 10px;
     transition: all 0.2s ease-out;
 
-    &:hover{
-        border-color: $purple600;
-        cursor: pointer;
+    &-selected{
+        border-color: $accent;
+        background-color: $blue100;
     }
 
-    &-selected{
-        border-color: $purple600;
-        background-color: $blue100;
+    &:hover{
+        border-color: $accent;
+        cursor: pointer;
     }
 }
 
