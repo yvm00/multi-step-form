@@ -3,6 +3,12 @@
         <div class="menu__items row items-center q-px-md q-pt-lg"
         v-for="btn in btns"
         :key="btn.id">
+        <!-- <div
+        class="menu__step-circle q-mr-sm"
+        :class="{ 'active': isActive(btn.component) }"
+        >
+            {{ btn.id }}
+        </div> -->
             <q-btn 
             @click="menuStore.navigateTo(btn.component)" 
             class="menu__btn"
@@ -24,7 +30,7 @@
 
 <script setup lang="ts">
 import { useMenuStore, type MenuItem } from '../stores/menuStore';
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const menuStore = useMenuStore();
@@ -56,16 +62,29 @@ const isActive = (component: string) => {
         color: $white;
         text-transform: uppercase;
     }
-
     &__btn{
         border: 1px solid $white;
         transition: all 0.2s ease-out;
 
-        &:hover{  
-        background-color: $blue200 !important; 
-        border-color: $blue200 ; 
-        color: $primary;
+        &:hover{
+            background-color: $blue200 !important; 
+            border-color: $blue200 ; 
+            color: $primary; 
         }
+    }
+
+    &__step-circle{
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 1px solid $white;
+        background-color: transparent;
+        color: $white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        transition: all 0.2s ease-out;
     }
 
     &__label{

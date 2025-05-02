@@ -1,17 +1,18 @@
 <template>
-    <div class="q-pl-lg q-pt-lg q-pr-xl" >
-        <div class="text-h4 text-primary text-weight-bold">
+    <div class="info q-pl-lg q-pt-lg q-pr-xl full-height" > 
+        <div class="q-mb-sm">
+            <div class="text-h4 text-primary text-weight-bold">
             Personal Info
-        </div>
-        <div class="text-body2 text-secondary" >
-            Please provide your name, email address, and phone number.
-        </div>
-        <div class="q-my-lg">
+            </div>
+            <div class="text-body2 text-secondary">
+                Please provide your name, email address, and phone number.
+            </div>
+        </div>  
             <q-form @submit="onSubmit">
                 <p class="text-body2 q-mb-sm">Name</p>
                 <q-input 
                 class="q-mb-sm" 
-                outlined v-model="name" 
+                outlined v-model="infoStore.name" 
                 placeholder="e.g. Sam Smith" 
                 dense
                 lazy-rules
@@ -21,7 +22,7 @@
                 <p class="text-body2 q-mb-sm">Email Address</p>
                 <q-input 
                 class="q-mb-sm" 
-                outlined v-model="address" 
+                outlined v-model="infoStore.address" 
                 type="email"
                 placeholder="e.g. samsmith@gmail.com"
                 dense
@@ -36,7 +37,7 @@
                 <q-input 
                 class="q-mb-sm" 
                 outlined
-                v-model="phone"
+                v-model="infoStore.phone"
                 type="tel"
                 placeholder="1 234 567 890"
                 prefix="+"
@@ -47,27 +48,24 @@
                     val => /^[0-9]{10}$/.test(val) || 'Please enter a valid phone number'
 
                 ]"
-                />
-                
-                <div class="flex justify-end q-mt-xl">
-                    <q-btn class="text-capitalize text-weight-medium" label="Next Step" type="submit" color="primary" unelevated/>
-                </div>            
-            </q-form>      
-        </div>
+                />          
+            </q-form>   
+            
+            <div class="flex justify-end q-my-lg">
+                <q-btn class="text-capitalize text-weight-medium" label="Next Step" type="submit" color="primary" unelevated  style="width: 100px"/>
+            </div>  
     </div>
 </template>
 
 <script setup lang="ts">
 import { useMenuStore } from '../stores/menuStore';
-import { ref } from 'vue';
+import { useInfoStore } from 'src/stores/infoStore';
 const menuStore = useMenuStore();
-
-const name = ref('');
-const address = ref('');
-const phone = ref('');
+const infoStore = useInfoStore();
 
 const onSubmit = () => {    
-    if(name && address && phone) {
+    if(infoStore.name && infoStore.address && infoStore.phone) {
+        infoStore.isValid = true
         menuStore.navigateTo('Plan')
     }    
 }
@@ -75,4 +73,9 @@ const onSubmit = () => {
 </script>
 
 <style scoped lang="scss">
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 </style>

@@ -1,24 +1,27 @@
 <template>
-    <div class="plan q-pl-lg q-pt-lg q-pr-xl">
-        <div class="text-h4 text-primary text-weight-bold">
-        Pick add-ons
+    <div class="ons q-pl-lg q-pt-lg q-pr-xl full-height">
+        <div>
+            <div class="text-h4 text-primary text-weight-bold">
+            Pick add-ons
+            </div>
+            <div class="text-body2 text-secondary">
+            Add-ons help enhance your gaming experience.
+            </div>
         </div>
-        <div class="text-body2 text-secondary">
-        Add-ons help enhance your gaming experience.
-        </div>
-        <q-list class="q-my-lg">
+        
+        <q-list>            
         <q-item    
             class="ons__item q-my-md q-py-md"    
             tag="label"
             v-for="option in planStore.optionList"
             :key="option.id"
-            :active="(planStore.selectedOptions as string[]).includes(option.label)"
+            :active="planStore.selectedOptions.some(obj => obj.label === option.label)"
             active-class="ons__item-selected"
         >
             <q-item-section avatar>
             <q-checkbox
                 v-model="planStore.selectedOptions"
-                :val="option.label"
+                :val="option"
                 color="accent"
             />
             </q-item-section>
@@ -54,6 +57,26 @@ const planStore = usePlanStore();
 </script>
 
 <style scoped lang="scss">
+.ons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__item{
+        border: 1px solid $border;
+        border-radius: 5px;
+
+        &-selected{
+            border-color: $accent;
+            background-color: $blue100;
+        }
+
+        &:hover{
+            border-color: $accent;
+            background-color: $blue100;
+        }
+    }
+}
 .ons__item{
     border: 1px solid $border;
     border-radius: 5px;

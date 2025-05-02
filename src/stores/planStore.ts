@@ -1,7 +1,11 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import arcadeIcon from '../assets/icon-arcade.svg';
+import advancedIcon from '../assets/icon-advanced.svg';
+import proIcon from '../assets/icon-pro.svg';
+import { watch } from 'fs';
 
-export type CardsItem = {
+export type PlanItem = {
     id: number,
     img: string,
     label: string,
@@ -17,8 +21,13 @@ export type OptionItem = {
     yearlyCost: number
 }
 
+export const usePlanStore = defineStore('plan', () => {    
 
-export const usePlanStore = defineStore('plan', () => {
+    const planList = ref<PlanItem[]>([
+        {id: 1, img: arcadeIcon, label: 'Arcade', monthlyCost: 9, yearlyCost: 90},
+        {id: 2, img: advancedIcon, label: 'Advanced', monthlyCost: 12, yearlyCost: 120},
+        {id: 3, img: proIcon, label: 'Pro', monthlyCost: 15, yearlyCost: 150},
+    ])
 
     const optionList = ref<OptionItem[]>([
         {id: 1, label: 'Online service', title: 'Access to multiplayer games', monthlyCost: 1, yearlyCost: 10},
@@ -27,14 +36,21 @@ export const usePlanStore = defineStore('plan', () => {
     ])
 
     const version = ref<'montly' | 'yearly'>('yearly')
-    const selectedPlan = ref('')
-    const selectedOptions = ref([])
+    const selectedPlan = ref<PlanItem | null>(planList.value[0] || null)
+    const selectedOptions = ref<OptionItem[]>([])
+    
 
-    const setPlan = (label: string) => {
-        selectedPlan.value = label
+    const setPlan = (plan: PlanItem ) => {
+        selectedPlan.value = plan
     }
 
-  
+    const totalMontly = computed(() => {
+        return selectedPlan.value!.monthlyCost + selectedOptions.value.reduce((sum, item) => sum + item.monthlyCost, 0);
+    }); 
 
-    return {version, setPlan, selectedPlan, optionList, selectedOptions};
+    const totalYearly = computed(() => {
+        return selectedPlan.value!.yearlyCost + selectedOptions.value.reduce((sum, item) => sum + item.yearlyCost, 0);
+    });
+
+    return {version, setPlan, selectedPlan, optionList, planList, selectedOptions, totalMontly, totalYearly};
 });

@@ -25,7 +25,7 @@ import StepsMenu from './components/StepsMenu.vue'
 
     &__container {
     width: 900px;
-    min-height: 530px;
+    min-height: 550px;
     display: flex;
     background-color: $white;
     box-shadow: 0px 5px 20px $purple200;

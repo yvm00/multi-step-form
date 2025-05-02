@@ -1,3 +1,4 @@
+import DonePage from 'src/pages/DonePage.vue';
 import InfoPage from 'src/pages/InfoPage.vue';
 import OnsPage from 'src/pages/OnsPage.vue';
 import PlanPage from 'src/pages/PlanPage.vue';
@@ -24,6 +25,11 @@ const routes: RouteRecordRaw[] = [
     path: '/sum',
     name: 'Summary',
     component: SummaryPage,
+  },
+  {
+    path: '/done',
+    name: 'Done',
+    component: DonePage
   },
 
   // Always leave this as last one,

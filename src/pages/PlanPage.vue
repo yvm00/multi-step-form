@@ -1,16 +1,18 @@
 <template>
-    <div class="plan q-pl-lg q-pt-lg q-pr-xl" >
-        <div class="text-h4 text-primary text-weight-bold">
-            Select your plan
-        </div>
-        <div class="text-body2 text-secondary" >
-            You have the option of monthly or yearly billing.
-        </div>
+    <div class="plan q-pl-lg q-pt-lg q-pr-xl full-height" >
+        <div>
+            <div class="text-h4 text-primary text-weight-bold">
+                Select your plan
+            </div>
+            <div class="text-body2 text-secondary" >
+                You have the option of monthly or yearly billing.
+            </div>  
+        </div>        
         <div class="row q-gutter-sm justify-around q-my-lg">
             <q-card 
-            v-for="card in cards"
+            v-for="card in planStore.planList"
             :key="card.id"
-            @click="planStore.setPlan(card.label)"
+            @click="planStore.setPlan(card)"
             class="plan__card"
             :class="{'plan__card-selected': isSelected(card.label)}" 
             flat 
@@ -41,53 +43,46 @@
                 />
             <div class="text-weight-bold" :class="{'text-primary': planStore.version == 'yearly', 'text-secondary': planStore.version == 'montly' }">Yearly</div>
         </div>
+
         <NextButtons :component="'Ons'"/>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useMenuStore} from '../stores/menuStore';
-import { usePlanStore, type CardsItem} from '../stores/planStore';
-import { onMounted, ref } from 'vue';
-import arcadeIcon from '../assets/icon-arcade.svg';
-import advancedIcon from '../assets/icon-advanced.svg';
-import proIcon from '../assets/icon-pro.svg';
+import { usePlanStore} from '../stores/planStore';
 import NextButtons from '../components/NextButtons.vue';
-const menuStore = useMenuStore();
 const planStore = usePlanStore();
 
-const cards = ref<CardsItem[]>([
-    {id: 1, img: arcadeIcon, label: 'Arcade', monthlyCost: 9, yearlyCost: 90},
-    {id: 2, img: advancedIcon, label: 'Advanced', monthlyCost: 12, yearlyCost: 120},
-    {id: 3, img: proIcon, label: 'Pro', monthlyCost: 15, yearlyCost: 150},
-])
-
 const isSelected = (label: string) => {
-  return planStore.selectedPlan === label;
+  return planStore.selectedPlan?.label === label;
 };
 
-onMounted(() => {
-  planStore.setPlan('Arcade');
-});
 
 </script>
 
 <style scoped lang="scss">
-.plan__card{
+.plan{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__card{
     min-width: 150px;
     min-height: 185px;
     border-radius: 10px;
     transition: all 0.2s ease-out;
 
-    &-selected{
-        border-color: $accent;
-        background-color: $blue100;
-    }
+        &-selected{
+            border-color: $accent;
+            background-color: $blue100;
+        }
 
-    &:hover{
-        border-color: $accent;
-        cursor: pointer;
+        &:hover{
+            border-color: $accent;
+            cursor: pointer;
+        }
     }
 }
+
 
 </style>
