@@ -8,7 +8,8 @@
                 Please provide your name, email address, and phone number.
             </div>
         </div>  
-            <q-form @submit="onSubmit">
+        <q-form class='flex column justify-between full-height' @submit="onSubmit">
+            <div>
                 <p class="text-body2 q-mb-sm">Name</p>
                 <q-input 
                 class="q-mb-sm" 
@@ -48,12 +49,12 @@
                     val => /^[0-9]{10}$/.test(val) || 'Please enter a valid phone number'
 
                 ]"
-                />          
-            </q-form>   
-            
-            <div class="flex justify-end q-my-lg">
-                <q-btn class="text-capitalize text-weight-medium" label="Next Step" type="submit" color="primary" unelevated  style="width: 100px"/>
+                /> 
             </div>  
+            <div class="self-end q-my-lg">
+                <q-btn class="text-capitalize text-weight-medium" label="Next Step" type="submit" color="primary" unelevated  style="width: 100px"/>
+            </div>         
+        </q-form>    
     </div>
 </template>
 
@@ -76,6 +77,6 @@ const onSubmit = () => {
 .info{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 20px;
 }
 </style>

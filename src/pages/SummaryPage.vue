@@ -34,9 +34,7 @@
                 <div class="text-secondary">Total (per {{ planStore.version == 'yearly' ?  'year' : 'month' }})</div>
                 <div class="text-body1 text-accent text-weight-bold">+${{ planStore.version == 'yearly' ?  `${planStore.totalYearly}/yr` : `${planStore.totalMontly}/mo` }}</div>
             </q-item>  
-
         </q-form>
-
         <NextButtons :label="'Confirm'" :component="'Done'"/>
     </div>
 
